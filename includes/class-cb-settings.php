@@ -308,7 +308,7 @@ class CB_Settings {
             'manual_zip'    => __( 'Manual Download & Install', 'content-broadcaster' ),
         ];
         ?>
-        <tr class="cb-env-row" data-index="<?php echo $idx; ?>">
+        <tr class="cb-env-row" data-index="<?php echo esc_attr( $idx ); ?>">
 
             <td class="cb-col-drag cb-row-num">
                 <span class="cb-row-index"><?php echo is_numeric( $index ) ? (int) $index + 1 : '#'; ?></span>
@@ -317,7 +317,7 @@ class CB_Settings {
             <td class="cb-col-nickname">
                 <input type="text"
                        name="<?php echo esc_attr( "{$option}[{$idx}][nickname]" ); ?>"
-                       value="<?php echo $nickname; ?>"
+                       value="<?php echo esc_attr( $nickname ); ?>"
                        placeholder="<?php esc_attr_e( 'e.g. Internal Dev 1', 'content-broadcaster' ); ?>"
                        class="regular-text cb-input"
                        aria-label="<?php esc_attr_e( 'Nickname', 'content-broadcaster' ); ?>"
@@ -340,7 +340,7 @@ class CB_Settings {
             <td class="cb-col-url">
                 <input type="url"
                        name="<?php echo esc_attr( "{$option}[{$idx}][site_url]" ); ?>"
-                       value="<?php echo $site_url; ?>"
+                       value="<?php echo esc_attr( $site_url ); ?>"
                        placeholder="https://target-site.com"
                        class="regular-text cb-input cb-url-input"
                        aria-label="<?php esc_attr_e( 'Site URL', 'content-broadcaster' ); ?>"
@@ -351,7 +351,7 @@ class CB_Settings {
                 <div class="cb-password-wrap" style="display: flex; gap: 8px;">
                     <input type="password"
                            name="<?php echo esc_attr( "{$option}[{$idx}][api_key]" ); ?>"
-                           value="<?php echo $api_key; ?>"
+                           value="<?php echo esc_attr( $api_key ); ?>"
                            placeholder="<?php esc_attr_e( 'xxxx xxxx xxxx xxxx', 'content-broadcaster' ); ?>"
                            class="regular-text cb-input cb-api-key-input"
                            aria-label="<?php esc_attr_e( 'API Key', 'content-broadcaster' ); ?>"
@@ -388,7 +388,7 @@ class CB_Settings {
                     <button type="button"
                             class="button cb-test-connection-btn"
                             title="<?php esc_attr_e( 'Test Connection', 'content-broadcaster' ); ?>"
-                            data-index="<?php echo $idx; ?>">
+                            data-index="<?php echo esc_attr( $idx ); ?>">
                         <span class="dashicons dashicons-admin-links"></span>
                     </button>
                     <button type="button"

@@ -2,7 +2,7 @@
 Contributors: zivrozenberg
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: content syndication, migration, rest api, export, import, environments, sync
+Tags: content-syndication, migration, rest-api, export, import
 Requires at least: 5.8
 Tested up to: 6.5
 Stable tag: 1.0.0

@@ -87,7 +87,7 @@ class CB_API_Receiver {
             );
         }
 
-        // Check if file is present
+        // Check if file is present — Nonces are not used here as this is a machine-to-machine REST API call authenticated via API Key.
         if ( empty( $_FILES ) || ! isset( $_FILES['file'] ) ) {
             return new WP_REST_Response(
                 array(
@@ -98,6 +98,7 @@ class CB_API_Receiver {
             );
         }
 
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $file = $_FILES['file'];
 
         // Validate file
@@ -221,7 +222,14 @@ class CB_API_Receiver {
         $filename = "$file_id.zip";
         $destination = $received_dir . $filename;
 
-        if ( ! move_uploaded_file( $tmp_path, $destination ) ) {
+        // Use WP_Filesystem for better security and compatibility.
+        if ( ! function_exists( 'WP_Filesystem' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+        }
+        WP_Filesystem();
+        global $wp_filesystem;
+
+        if ( ! $wp_filesystem->move( $tmp_path, $destination ) ) {
             return false;
         }
 

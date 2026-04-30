@@ -998,24 +998,15 @@ class CB_Importer {
      * @since 1.0.0
      */
     private function recursive_rmdir( string $dir ): void {
-        if ( ! is_dir( $dir ) ) {
-            return;
+        if ( ! function_exists( 'WP_Filesystem' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
         }
+        WP_Filesystem();
+        global $wp_filesystem;
 
-        $items = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator( $dir, RecursiveDirectoryIterator::SKIP_DOTS ),
-            RecursiveIteratorIterator::CHILD_FIRST
-        );
-
-        foreach ( $items as $item ) {
-            if ( $item->isDir() ) {
-                rmdir( $item->getRealPath() );
-            } else {
-                unlink( $item->getRealPath() ); // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
-            }
+        if ( ! empty( $wp_filesystem ) ) {
+            $wp_filesystem->delete( $dir, true );
         }
-
-        rmdir( $dir );
     }
 
     // ── Utility ───────────────────────────────────────────────────────────────

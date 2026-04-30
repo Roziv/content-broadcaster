@@ -40,8 +40,8 @@ class CB_Ajax_Handler {
         if ( ! $environment ) {
             // If the row is new (not saved yet), we get data from POST
             $environment = [
-                'site_url' => isset( $_POST['site_url'] ) ? esc_url_raw( $_POST['site_url'] ) : '',
-                'api_key'  => isset( $_POST['api_key'] ) ? sanitize_text_field( $_POST['api_key'] ) : '',
+                'site_url' => isset( $_POST['site_url'] ) ? esc_url_raw( wp_unslash( $_POST['site_url'] ) ) : '',
+                'api_key'  => isset( $_POST['api_key'] ) ? sanitize_text_field( wp_unslash( $_POST['api_key'] ) ) : '',
             ];
         }
 

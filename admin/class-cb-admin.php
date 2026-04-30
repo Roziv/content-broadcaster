@@ -97,7 +97,8 @@ class CB_Admin {
             wp_die( esc_html__( 'You do not have permission to access this page.', 'content-broadcaster' ) );
         }
 
-        $active_tab = isset( $_GET['tab'] ) && $_GET['tab'] === 'import' ? 'import' : 'export';
+        // Nonce is not required here as this is a simple GET request to switch UI tabs.
+        $active_tab = isset( $_GET['tab'] ) && 'import' === $_GET['tab'] ? 'import' : 'export';
         ?>
         <div class="wrap cb-wrap">
             <h1 class="cb-page-title">
@@ -431,7 +432,9 @@ class CB_Admin {
             ? sanitize_key( $_POST['cb_import_status'] )
             : '';
 
-        $result = $importer->import( $_FILES['cb_zip_file'], $status_override );
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $uploaded_file = $_FILES['cb_zip_file'];
+        $result = $importer->import( $uploaded_file, $status_override );
 
         set_transient( 'cb_import_result_' . get_current_user_id(), $result, 120 );
         wp_safe_redirect( admin_url( 'admin.php?page=content-broadcaster&tab=import' ) );
@@ -450,7 +453,7 @@ class CB_Admin {
         }
 
         $filename = isset( $_GET['filename'] )
-            ? sanitize_file_name( rawurldecode( $_GET['filename'] ) )
+            ? sanitize_file_name( rawurldecode( wp_unslash( $_GET['filename'] ) ) )
             : '';
 
         if ( empty( $filename ) ) {

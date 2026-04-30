@@ -9,7 +9,6 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       content-broadcaster
- * Domain Path:       /languages
  * Requires at least: 5.8
  * Requires PHP:      7.4
  *
@@ -71,8 +70,7 @@ add_action( 'plugins_loaded', 'cb_init' );
  * @since 1.0.0
  */
 function cb_init(): void {
-    // Load text domain for translations.
-    load_plugin_textdomain( 'content-broadcaster', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+    // Load text domain for translations — WordPress.org handles this automatically now.
 
     // Register API receiver (hooks into rest_api_init)
     CB_API_Receiver::register();

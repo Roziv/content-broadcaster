@@ -451,7 +451,13 @@ class CB_Exporter {
             wp_mkdir_p( CB_EXPORT_DIR );
         }
 
-        if ( ! is_writable( CB_EXPORT_DIR ) ) {
+        if ( ! function_exists( 'WP_Filesystem' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+        }
+        WP_Filesystem();
+        global $wp_filesystem;
+
+        if ( ! $wp_filesystem->is_writable( CB_EXPORT_DIR ) ) {
             return [
                 'success' => false,
                 'error'   => 'Export directory is not writable: ' . CB_EXPORT_DIR,
